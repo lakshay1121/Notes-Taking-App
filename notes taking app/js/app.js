@@ -14,6 +14,7 @@ let addBtn = document.getElementById('addBtn');
 addBtn.addEventListener("click", function (e) {
 
     let addTxt = document.getElementById('addTxt');
+    let addTitle = document.getElementById('addTitle');
 
     //whichever value localstorage have in notes give that output
 
@@ -32,12 +33,18 @@ addBtn.addEventListener("click", function (e) {
     else {
         notesObj = JSON.parse(notes);
     }
-    notesObj.push(addTxt.value);
+
+    let myObj = {
+        title: addTitle.value,
+        text: addTxt.value
+    }
+    notesObj.push(myObj);
 
     //updating local storage
 
     localStorage.setItem("notes", JSON.stringify(notesObj));
     addTxt.value = "";
+    addTitle.value = "";
     // console.log(notesObj);
 
 
@@ -72,9 +79,9 @@ function showNotes() {
         <div class=" noteCard my-2 mx-2 card" style="width: 18rem;">
 
         <div class="card-body">
-            <h5 class="card-title">Note ${index + 1}
+            <h5 class="card-title">Note ${element.title}
             </h5>
-            <p class="card-text"> ${element}</p>
+            <p class="card-text"> ${element.text}</p>
             <button id = "${index}" onclick = "deleteNote(this.id)" class="btn btn-primary">Delete Note</button>
         </div>
     </div>  `;
